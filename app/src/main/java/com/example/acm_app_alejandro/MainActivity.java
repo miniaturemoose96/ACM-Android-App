@@ -79,6 +79,12 @@ public class MainActivity extends AppCompatActivity
             // Handle Resources Fragment
         } else if (id == R.id.about_us) {
             // Handle About us tab
+            AboutUs aboutFragment = new AboutUs();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, aboutFragment);
+            fragmentTransaction.commit();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
