@@ -73,16 +73,34 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.home) {
             // Handle Home action
+            
+
         } else if (id == R.id.announcements) {
+
             // Handle Announcements Fragment
+            AnnouncementFragment announcement = new AnnouncementFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frag_content, announcement);
+            fragmentTransaction.commit();
+
+
         } else if (id == R.id.resources) {
+
             // Handle Resources Fragment
+            ResourcesFragment resource = new ResourcesFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frag_content, resource);
+            fragmentTransaction.commit();
+
         } else if (id == R.id.about_us) {
+
             // Handle About us tab
             AboutUs aboutFragment = new AboutUs();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, aboutFragment);
+            fragmentTransaction.replace(R.id.frag_content, aboutFragment);
             fragmentTransaction.commit();
 
         }
