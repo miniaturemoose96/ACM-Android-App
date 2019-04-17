@@ -1,4 +1,4 @@
-package models.mlh;
+package com.example.acm_app_alejandro;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,7 +12,7 @@ public class APIClient {
     public static Retrofit getApiClient() {
         if(retrofit == null){
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
-                    //GSON converts Java objects to their JSON representation
+                    //JSON converts Java objects to their JSON representation
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

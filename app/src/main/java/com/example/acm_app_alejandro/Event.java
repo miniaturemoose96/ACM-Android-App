@@ -1,4 +1,4 @@
-package models.mlh;
+package com.example.acm_app_alejandro;
 
 public class Event {
     // Create variables for the JSON objects and Getters/Setters

@@ -1,4 +1,4 @@
-package models.mlh;
+package com.example.acm_app_alejandro;
 
 import com.google.gson.annotations.SerializedName;
 
