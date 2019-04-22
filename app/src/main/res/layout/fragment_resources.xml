@@ -6,7 +6,7 @@
     tools:context=".ResourcesFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/hackathons_recycler"
+        android:id="@+id/RecyclerHackathons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         > </android.support.v7.widget.RecyclerView>

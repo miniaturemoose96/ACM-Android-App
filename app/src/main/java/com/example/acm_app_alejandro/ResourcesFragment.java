@@ -3,11 +3,13 @@ package com.example.acm_app_alejandro;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,26 +26,29 @@ public class ResourcesFragment extends Fragment {
     private List<Event> hackathons;
 
     //Instace of TextView for our results. This will be displayed in the fragment_resources.xml
-    private TextView results;
+    private RecyclerView recyclerView;
+    private RecyclerHackathons recyclerAdapter;
 
     public ResourcesFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Understanding this completely is out of the scope of the workshop
+        //Just know that we are getting our root view since we are using a fragment instead of an activity.
+        //We must know what activity we are on.
         View rootView = inflater.inflate(R.layout.fragment_resources, container, false);
 
-        //Find the results TextView in our XML through Id
-        results = rootView.findViewById(R.id.hackathons_recycler);
+        getActivity().setTitle("Resources");
+
+        recyclerView = rootView.findViewById(R.id.RecyclerHackathons);
 
         //LoadJSON is a custom method, we take in the parameter container since this is a fragment.
         LoadJson(container);
 
         return rootView;
-
     }
 
     public void LoadJson(final ViewGroup container){
@@ -52,21 +57,17 @@ public class ResourcesFragment extends Fragment {
         Call<List<Event>> call;
         call = apiInterface.getEvents();
 
+        //We will be changing our response for the enqueue.
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-
-                hackathons = response.body();
-                for (Event event : hackathons) {
-                    String content = "";
-                    content += "Name: " + event.getName() + "\n";
-                    content += "Location: " + event.getLocation() + "\n";
-                    content += "Start Date: " + event.getStartDate() + "\n";
-                    content += "End Date: " + event.getEndDate() + "\n";
-                    content += "URL: " + event.getUrl() + "\n\n";
-
-                    results.append(content);
-                }
+                hackathons = filterEvents(response.body());
+                //Instead of the Text View we appended to, we're going to replace it with the RecyclerView.
+                //Here, create the instance of the RecyclerAdapter.
+                recyclerAdapter = new RecyclerHackathons(hackathons, container.getContext());
+                recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
+                recyclerView.setAdapter(recyclerAdapter);
+                recyclerAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -74,6 +75,18 @@ public class ResourcesFragment extends Fragment {
 
             }
         });
+    }
+
+    public List<Event> filterEvents(final List<Event> allEvents){
+        List<Event> caEvents = new ArrayList<>();
+        for(int i = allEvents.size() - 1; i > 0; i--){
+            //Filter California Events
+            if(allEvents.get(i).getLocation().contains("CA")){
+                caEvents.add(allEvents.get(i));
+            }
+        }
+        return caEvents;
+
     }
 
 }
