@@ -25,7 +25,7 @@ public class ResourcesFragment extends Fragment {
 
     //Instace of TextView for our results. This will be displayed in the fragment_resources.xml
     private TextView results;
-    
+
     public ResourcesFragment() {
         // Required empty public constructor
     }
@@ -37,7 +37,7 @@ public class ResourcesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_resources, container, false);
 
         //Find the results TextView in our XML through Id
-        results = rootView.findViewById(R.id.results);
+        results = rootView.findViewById(R.id.hackathons_recycler);
 
         //LoadJSON is a custom method, we take in the parameter container since this is a fragment.
         LoadJson(container);
