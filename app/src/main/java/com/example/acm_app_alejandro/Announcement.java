@@ -1,31 +1,14 @@
 package com.example.acm_app_alejandro;
 
-import android.support.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.List;
-
 public class Announcement {
-    // Firebase
-    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-    //Instance of our database
-    private DatabaseReference mDatabaseRefence;
-
-    // Anouncements List
-    private List<Announcement> mAnnouncement;
 
     private String title;
     private String author;
     private String body;
     private String date;
     private String imageUrl;
+
+    public Announcement(){}
 
     public String getTitle() {
         return title;
@@ -67,29 +50,11 @@ public class Announcement {
         this.imageUrl = imageUrl;
     }
 
-    public Announcement(){}
-
-    // Create method that retrieves our data
-    public void retrieveData(){
-        // Get database reference from firebase
-        mDatabaseRefence = database.getReference();
-        // Set child of the root
-        Query query = mDatabaseRefence.child("Announcements");
-        // In order to listen for changes, add a listener
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    Announcement announcement = singleSnapshot.getValue(Announcement.class);
-                    mAnnouncement.add(announcement);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+    public Announcement(String title, String author, String body, String date, String imageUrl){
+        this.title = title;
+        this.author = author;
+        this.body = body;
+        this.date = date;
+        this.imageUrl =imageUrl;
     }
 }

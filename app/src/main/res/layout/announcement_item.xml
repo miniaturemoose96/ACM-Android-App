@@ -22,7 +22,7 @@
                 android:id="@+id/announcement_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="35dp"
+                android:textSize="35sp"
                 android:text="Test Title"
                 android:textColor="#000"/>
             <TextView
